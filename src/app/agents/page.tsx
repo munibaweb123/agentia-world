@@ -58,8 +58,10 @@ export default function AgentsPage() {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/agents/placeholder.png';
+                  target.src = '/images/agents/placeholder.webp';
                 }}
+                loading="lazy"
+                quality={75}
               />
             </div>
             <div className="p-4">

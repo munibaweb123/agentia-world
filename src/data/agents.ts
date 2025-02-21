@@ -6,7 +6,7 @@ export const agents: Agent[] = [
     name: 'Research Assistant',
     description: 'Helps with research, summarization, and data analysis',
     category: 'productivity',
-    imageUrl: '/images/agents/research-assistant.webp',
+    imageUrl: '/images/research-assistant.jpg',
     capabilities: ['Research', 'Summarization', 'Analysis'],
     pricing: {
       free: false,
@@ -18,7 +18,7 @@ export const agents: Agent[] = [
     name: 'Creative Writer',
     description: 'Generates creative content, stories, and marketing copy',
     category: 'creative',
-    imageUrl: '/images/agents/creative-writer.webp',
+    imageUrl: '/images/creative-writer.jpg',
     capabilities: ['Content Writing', 'Storytelling', 'Copywriting'],
     pricing: {
       free: false,
@@ -30,7 +30,7 @@ export const agents: Agent[] = [
     name: 'Data Analyst',
     description: 'Analyzes data sets and provides actionable insights',
     category: 'analysis',
-    imageUrl: '/images/agents/data-analyst.webp',
+    imageUrl: '/images/data-analyst.avif',
     capabilities: ['Data Analysis', 'Visualization', 'Reporting'],
     pricing: {
       free: false,
@@ -42,7 +42,7 @@ export const agents: Agent[] = [
     name: 'Personal Assistant',
     description: 'Helps with scheduling, reminders, and daily tasks',
     category: 'assistant',
-    imageUrl: '/images/agents/personal-assistant.webp',
+    imageUrl: '/images/personal-assistant.avif',
     capabilities: ['Task Management', 'Scheduling', 'Reminders'],
     pricing: {
       free: true
@@ -53,7 +53,7 @@ export const agents: Agent[] = [
     name: 'Code Helper',
     description: 'Assists with coding, debugging, and code reviews',
     category: 'productivity',
-    imageUrl: '/images/agents/code-helper.webp',
+    imageUrl: '/images/code-helper.avif',
     capabilities: ['Code Generation', 'Debugging', 'Code Review'],
     pricing: {
       free: false,
@@ -65,7 +65,7 @@ export const agents: Agent[] = [
     name: 'Image Creator',
     description: 'Creates and edits images using AI technology',
     category: 'creative',
-    imageUrl: '/images/agents/image-creator.webp',
+    imageUrl: '/images/image-creator.avif',
     capabilities: ['Image Generation', 'Image Editing', 'Style Transfer'],
     pricing: {
       free: false,
