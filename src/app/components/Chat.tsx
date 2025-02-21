@@ -48,7 +48,7 @@ export default function Chat() {
       </button>
 
       {isChatOpen && (
-        <div className="fixed bottom-16 right-6 w-full max-w-md h-[80vh] sm:h-[600px] bg-white rounded-2xl shadow-xl flex flex-col">
+        <div className="fixed bottom-16 right-6 w-full max-w-md sm:max-w-lg h-[80vh] sm:h-[600px] bg-white rounded-2xl shadow-xl flex flex-col">
           <div className="p-4 border-b bg-blue-600 rounded-t-2xl">
             <h3 className="text-lg font-semibold text-white">AI Assistant</h3>
           </div>
