@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
+interface LoginError extends Error {
+  message: string;
+}
+
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -18,41 +22,38 @@ export default function Login() {
     setError('');
     setLoading(true);
 
-    console.log('Attempting login with:', formData); // Debug log
+    console.log('Attempting login with:', formData);
 
     try {
-      // Basic validation
       if (!formData.email || !formData.password) {
         throw new Error('Please fill in all fields');
       }
 
-      // Hardcoded credentials for testing
       const validEmail = 'test@example.com';
       const validPassword = 'password';
 
-      console.log('Checking credentials...'); // Debug log
+      console.log('Checking credentials...');
       console.log('Input email:', formData.email);
       console.log('Input password:', formData.password);
 
       if (formData.email === validEmail && formData.password === validPassword) {
-        console.log('Login successful!'); // Debug log
+        console.log('Login successful!');
         
-        // Store user session
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userEmail', formData.email);
         
-        // Add a small delay to ensure localStorage is set
         setTimeout(() => {
-          console.log('Redirecting to home...'); // Debug log
+          console.log('Redirecting to home...');
           router.push('/');
         }, 100);
       } else {
-        console.log('Invalid credentials!'); // Debug log
+        console.log('Invalid credentials!');
         throw new Error('Invalid email or password. Use test@example.com / password');
       }
-    } catch (err: any) {
-      console.error('Login error:', err); // Debug log
-      setError(err.message || 'Failed to sign in');
+    } catch (err: unknown) {
+      console.error('Login error:', err);
+      const error = err as LoginError;
+      setError(error.message || 'Failed to sign in');
     } finally {
       setLoading(false);
     }

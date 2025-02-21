@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
+interface SignupError extends Error {
+  message: string;
+}
+
 export default function SignUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -29,9 +33,10 @@ export default function SignUp() {
     try {
       // Add your signup logic here
       console.log('Sign up data:', formData);
-      router.push('/dashboard'); // Redirect to dashboard after successful signup
-    } catch (err) {
-      setError('Failed to create an account');
+      router.push('/dashboard');
+    } catch (error: unknown) {
+      const signupError = error as SignupError;
+      setError(signupError.message || 'Failed to create an account');
     }
 
     setLoading(false);

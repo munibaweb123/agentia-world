@@ -17,7 +17,7 @@ export default function Hero() {
     }, 500);
 
     return () => clearInterval(timer);
-  }, [words.length]);
+  }, [words.length, title]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
