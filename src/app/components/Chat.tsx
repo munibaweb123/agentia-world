@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 export default function Chat() {
   type Message = { role: 'user' | 'assistant'; content: string };
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: 'Welcome to Agentia World! How can I assist you today?' }
+  ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -24,15 +27,49 @@ export default function Chat() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({
+          message: `
+You are the official Agentia World assistant. You can answer questions related to Agentia World and agentic AI.
+
+About Agentia World:
+Agentia World is a collaborative ecosystem where users can discover, create, and deploy intelligent AI agents. The platform offers smart conversations powered by Google's Gemini AI, real-time responses, and 24/7 availability.
+
+Features:
+- Smart Conversations: Engage in intelligent conversations powered by Google's Gemini AI.
+- Real-time Responses: Get instant answers to your questions.
+- 24/7 Availability: Access the chatbot anytime, anywhere.
+
+Pricing Plans:
+- Basic: $10/month. Features: Feature A, Feature B, Feature C.
+- Pro: $20/month. Features: Feature D, Feature E, Feature F.
+- Enterprise: $50/month. Features: Feature G, Feature H, Feature I.
+
+You may also answer general questions about agentic AI using your own knowledge as an AI assistant.
+
+If the question is not about Agentia World or agentic AI, politely reply that you can only assist with Agentia World or agentic AI topics.
+User says: ${input}
+          `
+        }),
       });
 
       const data = await response.json();
       console.log('API Response:', data);
-      
-      const assistantMessage: Message = { role: 'assistant', content: data.message };
-      setMessages(prev => [...prev, assistantMessage]);
+
+      if (data.error) {
+        // Show error from backend in chat
+        const errorMessage: Message = { role: 'assistant', content: data.error };
+        setMessages(prev => [...prev, errorMessage]);
+      } else {
+        const assistantMessage: Message = { role: 'assistant', content: data.message };
+        setMessages(prev => [...prev, assistantMessage]);
+      }
     } catch (error) {
+      // Show network or unexpected error in chat
+      const errorMsg = error instanceof Error ? error.message : 'Something went wrong';
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: `[Error]: ${errorMsg}` }
+      ]);
       console.error('Error:', error);
     } finally {
       setIsLoading(false);
@@ -64,7 +101,11 @@ export default function Chat() {
                     : 'mr-auto bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white'
                 } p-3 rounded-lg max-w-[80%]`}
               >
-                {message.content}
+                {message.role === 'assistant' ? (
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                ) : (
+                  message.content
+                )}
               </div>
             ))}
             {isLoading && (
