@@ -28,8 +28,15 @@ export async function POST(request: Request) {
         const response = await result.response;
         text = response.text();
         break; // exit loop on success
-      } catch (err: any) {
-        if (err.message?.includes("overloaded") && attempts < 2) {
+      } catch (err: unknown) {
+        if (
+          typeof err === "object" &&
+          err !== null &&
+          "message" in err &&
+          typeof (err as { message?: string }).message === "string" &&
+          (err as { message: string }).message.includes("overloaded") &&
+          attempts < 2
+        ) {
           attempts++;
           await new Promise((res) => setTimeout(res, 1500)); // wait 1.5s
         } else {
